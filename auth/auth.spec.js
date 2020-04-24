@@ -2,6 +2,8 @@ const request = require("supertest");
 const server = require("../api/server");
 const db = require("../database/dbConfig");
 
+// cleans out the table before each test runs
+//truncate will empty all tables and reset all the keys.
 beforeEach(() => {
   return db("users").truncate();
 });
