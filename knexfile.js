@@ -1,12 +1,21 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
-    connection: { filename: './database/auth.db3' },
+    client: "sqlite3",
     useNullAsDefault: true,
-    migrations: {
-      directory: './database/migrations',
-      tableName: 'dbmigrations',
+    connection: {
+      filename: "./database/auth.db3",
     },
-    seeds: { directory: './database/seeds' },
+    //SQLite3 will not enforce foreign keys
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      },
+    },
+    migrations: {
+      directory: "./database/migrations",
+    },
+    seeds: {
+      directory: "./database/seeds",
+    },
   },
 };
